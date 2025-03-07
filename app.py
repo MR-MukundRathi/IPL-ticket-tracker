@@ -5,9 +5,6 @@ import json
 import os
 from datetime import datetime
 from google.oauth2 import service_account
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
 
@@ -15,12 +12,6 @@ app = Flask(__name__)
 scopes = [
        'https://www.googleapis.com/auth/spreadsheets','https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive'  # Full access
    ]
-
-# Load Google API credentials from environment variable
-google_api_credentials = os.getenv('GOOGLE_API_CREDENTIALS')
-
-if not google_api_credentials:
-    raise ValueError("GOOGLE_API_CREDENTIALS environment variable is not set.")
 
 # Parse the JSON string into a dictionary
 credentials_dict = json.loads(google_api_credentials)
