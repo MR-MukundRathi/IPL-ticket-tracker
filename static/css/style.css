@@ -344,3 +344,44 @@ header {
 .toast-header .btn-close-white {
     filter: brightness(0) invert(1);
 }
+
+#news-container {
+    border: 1px solid #dee2e6; /* Light border for the card */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+
+#news-content {
+    margin-top: 10px; /* Space between the dot and news text */
+    font-weight: normal; /* Make it less bold */
+    font-size: 1rem; /* Subtle font size */
+}
+
+#live-dot {
+    margin-right: 10px; /* Space between the dot and news text */
+}
+
+/* Pulsating effect for the live dot */
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* News content styling */
+#news-content {
+    margin-top: 10px; /* Space between the dot and news text */
+    font-weight: normal; /* Make it less bold */
+    font-size: 1rem; /* Subtle font size */
+}
+
+/* Date styling */
+#news-content .news-date {
+    font-size: 0.85rem; /* Smaller font size for the date */
+    color: #6c757d; /* Subtle color for the date */
+}

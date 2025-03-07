@@ -5,6 +5,9 @@ import json
 import os
 from datetime import datetime
 from google.oauth2 import service_account
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -150,6 +153,28 @@ def subscribe_to_match():
             'success': False,
             'message': f'Subscription error: {str(e)}'
         }), 500
+# Fetch the news details from the sheet
+@app.route('/news')
+def get_news():
+    try:
+        sheet = gc.open("IPL2025_Database")
+        news_sheet = sheet.worksheet("News")
+        news_records = news_sheet.get_all_records()
+
+        # Filter news with status "TRUE" and include the link
+        live_news = [
+            {
+                'date': news['date'],
+                'news': news['news'],
+                'link': news.get('link')  # Fetch the link column
+            }
+            for news in news_records if news.get('status') == "TRUE"
+        ]
+
+        return jsonify(live_news)
+    except Exception as e:
+        print(f"Error fetching news: {str(e)}")  # Debug log
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True) 

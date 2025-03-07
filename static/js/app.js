@@ -512,3 +512,56 @@ function showToast(title, message, type = 'info') {
         toastElement.parentElement.remove();
     });
 }
+
+let newsIndex = 0;
+let newsItems = [];
+
+// Fetch news on page load
+function fetchNews() {
+    fetch('/news')
+        .then(response => response.json())
+        .then(data => {
+            newsItems = data;
+            if (newsItems.length > 0) {
+                displayNews();
+                setInterval(displayNews, 6000); // Change news every 6 seconds
+            } else {
+                document.getElementById('news-content').innerText = 'No live news available.';
+                document.getElementById('news-header').innerText = ''; // Clear header if no news
+            }
+        })
+        .catch(error => console.error('Error fetching news:', error));
+}
+
+function displayNews() {
+    if (newsItems.length > 0) {
+        const newsContent = document.getElementById('news-content');
+        const newsDate = new Date(newsItems[newsIndex].date).toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+
+        // Create the news item HTML
+        let newsHTML = `<span class="news-date">${newsDate}</span>: ${newsItems[newsIndex].news}`;
+        
+        // Check if the link is available
+        if (newsItems[newsIndex].link) {
+            newsHTML += ` <a href="${newsItems[newsIndex].link}" target="_blank" style="color: red; text-decoration: none;">
+                <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+            </a>`;
+        }
+
+        newsContent.innerHTML = newsHTML;
+
+        // Update the header with the current news index
+        const newsHeader = document.getElementById('news-header');
+        newsHeader.innerText = `${newsIndex + 1}/${newsItems.length}`; // Show current index and total
+
+        newsIndex = (newsIndex + 1) % newsItems.length; // Loop back to the first news item
+    }
+}
+
+// Fetch news on page load
+window.onload = fetchNews;
