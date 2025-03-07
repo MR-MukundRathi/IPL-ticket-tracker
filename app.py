@@ -5,11 +5,14 @@ import json
 import os
 from datetime import datetime
 from google.oauth2 import service_account
-from dotenv import load_dotenv
-
-load_dotenv()  # Load environment variables from .env file
 
 app = Flask(__name__)
+
+# Define the scopes
+scopes = [
+       'https://www.googleapis.com/auth/spreadsheets','https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive'  # Full access
+   ]
+
 
 # Load Google API credentials from environment variable
 google_api_credentials = os.getenv('GOOGLE_API_CREDENTIALS')
