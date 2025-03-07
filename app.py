@@ -10,7 +10,9 @@ app = Flask(__name__)
 
 # Define the scopes
 scopes = [
-       'https://www.googleapis.com/auth/spreadsheets','https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive'  # Full access
+       'https://www.googleapis.com/auth/spreadsheets',
+       'https://spreadsheets.google.com/feeds',
+       'https://www.googleapis.com/auth/drive'  # Full access
    ]
 
 
