@@ -15,7 +15,6 @@ scopes = [
        'https://www.googleapis.com/auth/drive'  # Full access
    ]
 
-
 # Load Google API credentials from environment variable
 google_api_credentials = os.getenv('GOOGLE_API_CREDENTIALS')
 
@@ -26,7 +25,7 @@ if not google_api_credentials:
 credentials_dict = json.loads(google_api_credentials)
 
 # Create a credentials object
-credentials = service_account.Credentials.from_service_account_info(credentials_dict)
+credentials = service_account.Credentials.from_service_account_info(credentials_dict, scopes=scopes)
 
 # Authorize the gspread client
 gc = gspread.authorize(credentials)
