@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Complete guide for IPL 2025 ticket booking through BookMyShow, Paytm Insider, District by Zomato, and official team websites. Find the best deals and discounts for IPL matches.">
+    <meta name="keywords" content="IPL 2025, IPL tickets, BookMyShow IPL, Paytm Insider IPL, District by Zomato IPL, cricket tickets, IPL match tickets, IPL booking guide">
+    <meta name="author" content="IPL Ticket Tracker">
+    <meta property="og:title" content="IPL 2025 Ticket Tracker - Complete Booking Guide">
+    <meta property="og:description" content="Find and book IPL 2025 match tickets easily. Compare prices, get booking guides, and find the best deals.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IPL 2025 Ticket Tracker - Complete Booking Guide">
+    <meta name="twitter:description" content="Find and book IPL 2025 match tickets easily. Compare prices, get booking guides, and find the best deals.">
+    <title>IPL 2025 Ticket Tracker - Complete Booking Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="bg-primary text-white py-4 mb-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-0"><i class="fas fa-ticket-alt me-2"></i>IPL 2025 Ticket Tracker</h1>
+                    <p class="mb-0 mt-2 header-subtitle">Track and monitor IPL match ticket availability</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <div class="stats">
+                        <span class="me-3"><i class="fas fa-calendar-check me-1"></i> <span id="totalMatches">0</span> Matches</span>
+                        <span><i class="fas fa-clock me-1"></i> Live Updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Search and Filter Section -->
+        <div class="card mb-4 search-filter-card">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="search-box">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search matches...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="venueFilter">
+                            <option value="">All Venues</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="teamFilter">
+                            <option value="">All Teams</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IPL Booking News Section -->
+        <div class="card mb-4" id="news-container">
+            <div class="card-header" style="background-color: #f8f9fa; color: #6c757d; display: flex; align-items: center;">
+                <span id="live-dot" style="color: red; font-size: 1.5rem; margin-right: 10px; animation: pulsate 1.5s infinite;">●</span>
+                <h5 class="mb-0">IPL Booking News <span id="news-header" style="font-size: 0.9rem; color: #6c757d;"></span></h5>
+            </div>
+            <div class="card-body">
+                <div id="news" style="position: relative;">
+                    <div id="news-content" style="font-weight: normal; font-size: 1rem;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matches Table -->
+        <div class="card table-card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="matchesTable">
+                        <thead>
+                            <tr>
+                                <th>Match</th>
+                                <th>Date & Time</th>
+                                <th>Teams</th>
+                                <th>Venue</th>
+                                <th>Stadium</th>
+                                <th>Booking Status</th>
+                                <th>Book Tickets</th>
+                                <th>Notifications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Matches will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center my-4 d-none">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Modal for First-time User Details -->
+    <div class="modal fade" id="userDetailsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Subscribe to Notifications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="userDetailsForm">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Name*</label>
+                            <input type="text" class="form-control" id="userName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">Email*</label>
+                            <input type="email" class="form-control" id="userEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userPhone" class="form-label">Phone Number (Optional)</label>
+                            <input type="tel" class="form-control" id="userPhone">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveUserDetails">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Ticket Booking Section -->
+    <div class="container">
+        <div class="ticket-booking-section">
+            <h1 id="main-ticket-heading">IPL Tickets Booking Online, Date, Ticket Price 2025</h1>
+            <div class="ticket-intro">
+                <p>The 18th edition of the Indian Premier League (IPL) introduces an online ticket booking process for cricket enthusiasts eager to witness their favorite teams compete live in stadiums. To secure entry, cricket lovers are urged to book their IPL tickets online promptly, as availability is limited. Keep a close eye on the "Active Link" of IPL matches ticket 2025 on the official IPL ticket booking portal to stay informed about the commencement of ticket sales.</p>
+                <p>Each IPL match features distinct tickets, which can be purchased online or through offline channels. Prices vary according to seating categories, so carefully review the pricing for each stand within the stadium before making your selection. It's crucial to thoroughly check all details before booking your ticket, as the ticket holder will only have access to the designated area corresponding to their seat. Moreover, IPL 2025 match tickets are strictly for personal use and cannot be sold or auctioned for entry.</p>
+            </div>
+
+            <div class="table-of-contents">
+                <h2>Quick Navigation</h2>
+                <ul>
+                    <li><a href="#teams-affiliates">IPL Teams and Their Ticketing Affiliates</a></li>
+                    <li><a href="#team-prices">IPL Team Ticket Prices</a></li>
+                    <li><a href="#stadium-prices">IPL Tickets Price by Stadium</a></li>
+                    <li><a href="#booking-guide">Complete IPL 2025 Ticket Booking Guide</a></li>
+                    <li><a href="#bookmyshow-guide">Booking IPL Tickets through BookMyShow</a></li>
+                    <li><a href="#paytm-guide">Booking IPL Tickets through Paytm Insider</a></li>
+                    <li><a href="#official-website-guide">Booking IPL Tickets through the Team's Official Website</a></li>
+                    <li><a href="#offline-booking-guide">Offline IPL Ticket Booking</a></li>
+                    <li><a href="#deals-discounts">IPL Ticket Booking Deals and Discounts</a></li>
+                    <li><a href="#booking-faq">IPL Tickets Booking FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teams and Affiliates Section -->
+    <section id="teams-affiliates" class="container">
+        <h2>IPL Teams and Their Ticketing Affiliates</h2>
+        <p>Here is the table for ticketing partners for IPL 2025</p>
+        <div class="table-responsive">
+            <table class="ticket-partners-table">
+                <thead>
+                    <tr>
+                        <th>IPL Team (Home ground)</th>
+                        <th>Ticketing Partner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chennai Super Kings (CSK)</td>
+                        <td>District by Zomato</td>
+                    </tr>
+                    <tr>
+                        <td>Delhi Capitals (DC)</td>
+                        <td>District by Zomato</td>
+                    </tr>
+                    <tr>
+                        <td>Gujarat Titans (GT)</td>
+                        <td>District by Zomato</td>
+                    </tr>
+                    <tr>
+                        <td>Sunrisers Hyderabad (SRH)</td>
+                        <td>District by Zomato</td>
+                    </tr>
+                    <tr>
+                        <td>Punjab Kings (PBKS)</td>
+                        <td>District by Zomato</td>
+                    </tr>
+                    <tr>
+                        <td>Lucknow Super Giants (LSG)</td>
+                        <td>BookMyShow</td>
+                    </tr>
+                    <tr>
+                        <td>Mumbai Indians (MI)</td>
+                        <td>BookMyShow</td>
+                    </tr>
+                    <tr>
+                        <td>Rajasthan Royals (RR)</td>
+                        <td>BookMyShow</td>
+                    </tr>
+                    <tr>
+                        <td>Royal Challengers Bangalore (RCB)</td>
+                        <td>RCB official website</td>
+                    </tr>
+                    <tr>
+                        <td>Kolkata Knight Riders (KKR)</td>
+                        <td>BookMyShow</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Team Prices Section -->
+    <section id="team-prices" class="container">
+        <h2>IPL Team Ticket Prices</h2>
+        <div class="price-info">
+            <p>Here are some of the factors that affect the price of IPL tickets:</p>
+            <ul>
+                <li><strong>Team Popularity:</strong> Matches featuring popular teams like Mumbai Indians, Chennai Super Kings, or Royal Challengers Bangalore typically command higher prices due to increased demand.</li>
+                <li><strong>Match Type:</strong> Regular season matches are generally cheaper compared to playoffs and the final, with the final being the most expensive ticket.</li>
+                <li><strong>Stand Location:</strong> Seats closer to the pitch, offering a premium viewing experience, come at a premium cost. Additionally, stands with amenities like shade or air conditioning might be pricier.</li>
+                <li><strong>Stadium Location:</strong> Tickets in larger cities with modern stadiums tend to be more expensive compared to smaller cities.</li>
+                <li><strong>Demand and Supply:</strong> Limited availability due to high demand can lead to steeper prices. Early booking is often crucial for securing affordable tickets.</li>
+            </ul>
+            <div class="price-ranges">
+                <h3>General Price Ranges (2024 Season Reference):</h3>
+                <ul>
+                    <li>Regular Season Matches: ₹500 to ₹10,000</li>
+                    <li>Playoffs: ₹2,000 to ₹15,000 or more</li>
+                    <li>Final: ₹5,000 to ₹50,000</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stadium Prices Section -->
+    <section id="stadium-prices" class="container">
+        <h2>IPL Tickets Price by Stadium</h2>
+        <p>Based on past seasons and general trends, we can provide some estimated ranges for ticket prices based on stadium location and size:</p>
+        
+        <div class="stadium-category">
+            <h3>Large Stadiums</h3>
+            <div class="stadium-cards">
+                <div class="stadium-card">
+                    <h4>Narendra Modi Stadium (Ahmedabad)</h4>
+                    <p>Price Range: ₹3,000 to ₹20,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+                <div class="stadium-card">
+                    <h4>Eden Gardens (Kolkata)</h4>
+                    <p>Price Range: ₹2,500 to ₹15,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+                <div class="stadium-card">
+                    <h4>Wankhede Stadium (Mumbai)</h4>
+                    <p>Price Range: ₹4,000 to ₹25,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stadium-category">
+            <h3>Mid-Size Stadiums</h3>
+            <div class="stadium-cards">
+                <div class="stadium-card">
+                    <h4>M. Chinnaswamy Stadium (Bangalore)</h4>
+                    <p>Price Range: ₹1,500 to ₹10,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+                <div class="stadium-card">
+                    <h4>Rajiv Gandhi International Cricket Stadium (Hyderabad)</h4>
+                    <p>Price Range: ₹1,000 to ₹8,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+                <div class="stadium-card">
+                    <h4>Punjab Cricket Association Stadium (Mohali)</h4>
+                    <p>Price Range: ₹800 to ₹5,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stadium-category">
+            <h3>Smaller Stadiums</h3>
+            <div class="stadium-cards">
+                <div class="stadium-card">
+                    <h4>Sawai Mansingh Stadium (Jaipur)</h4>
+                    <p>Price Range: ₹500 to ₹3,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+                <div class="stadium-card">
+                    <h4>Maharashtra Cricket Association Stadium (Pune)</h4>
+                    <p>Price Range: ₹700 to ₹4,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+                <div class="stadium-card">
+                    <h4>Arun Jaitley Stadium (Delhi)</h4>
+                    <p>Price Range: ₹1,000 to ₹6,000</p>
+                    <div class="stadium-links">
+                        <a href="#" class="read-more">Read more</a>
+                        <a href="#" class="book-now">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="important-note">
+            <p><strong>Important Note:</strong> These are estimated ranges based on past trends and are not official confirmation for IPL 2025. Remember, prices can vary significantly depending on the specific match, team popularity, and other factors mentioned earlier.</p>
+        </div>
+    </section>
+
+    <!-- IPL Ticket Booking Guide Section -->
+    <section id="booking-guide" class="booking-guide mt-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Complete IPL 2025 Ticket Booking Guide</h2>
+            
+            <!-- BookMyShow Guide -->
+            <article id="bookmyshow-guide" class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Booking IPL Tickets through BookMyShow</h3>
+                    <div class="booking-steps">
+                        <p class="guide-intro">BookMyShow is one of the primary platforms for booking IPL tickets online. Follow these comprehensive steps to secure your tickets:</p>
+                        <ol>
+                            <li><strong>Visit the BookMyShow Website or App:</strong> Access BookMyShow through their official website (www.bookmyshow.com) or download their mobile application from your device's app store. The app is available for both Android and iOS devices.</li>
+                            <li><strong>Select Your Location:</strong> Choose your city from the location dropdown menu. This helps BookMyShow show you relevant matches happening in your area. You can also allow the app to detect your location automatically.</li>
+                            <li><strong>Search for IPL Tickets:</strong> During the IPL season, you'll usually find IPL tickets featured on the homepage. Alternatively, use the search bar and type "IPL 2025" or navigate to the Sports category to find all available IPL matches.</li>
+                            <li><strong>Select the IPL Match:</strong> Browse through the list of upcoming matches. Each listing will show the teams playing, match date, time, and venue. Click on your preferred match to view available tickets.</li>
+                            <li><strong>Choose the Seating Category:</strong> Different stadiums offer various seating options:
+                                <ul class="seating-categories">
+                                    <li>VIP Boxes/Corporate Boxes (Premium Experience)</li>
+                                    <li>Pavilion/Premium Stands (Best View)</li>
+                                    <li>North/South/East/West Stands (Different Viewing Angles)</li>
+                                    <li>General Admission (Budget-Friendly Option)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Select the Number of Tickets:</strong> Choose how many tickets you want to purchase. Most venues have a limit on the maximum number of tickets per transaction (usually 4-6 tickets).</li>
+                            <li><strong>Review Seating Plan:</strong> Carefully examine the stadium layout to understand your seat location. The interactive seating chart shows:
+                                <ul class="seating-features">
+                                    <li>View from different sections</li>
+                                    <li>Seat pricing for each category</li>
+                                    <li>Available and unavailable seats</li>
+                                    <li>Entry gates for different sections</li>
+                                </ul>
+                            </li>
+                            <li><strong>Login or Sign Up:</strong> You'll need a BookMyShow account to complete the purchase. Sign up using:
+                                <ul class="login-options">
+                                    <li>Email address</li>
+                                    <li>Mobile number</li>
+                                    <li>Social media accounts</li>
+                                </ul>
+                            </li>
+                            <li><strong>Enter Payment Details:</strong> BookMyShow offers multiple payment options:
+                                <ul class="payment-methods">
+                                    <li>Credit/Debit Cards</li>
+                                    <li>Net Banking</li>
+                                    <li>UPI</li>
+                                    <li>Mobile Wallets</li>
+                                    <li>EMI Options (for eligible transactions)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Complete the Transaction:</strong> After payment:
+                                <ul class="post-booking">
+                                    <li>You'll receive an email confirmation</li>
+                                    <li>SMS confirmation will be sent to your registered mobile</li>
+                                    <li>E-tickets will be available in your BookMyShow account</li>
+                                    <li>Download and save your tickets for match day</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <div class="important-notes mt-4">
+                            <h4>Important Notes:</h4>
+                            <ul>
+                                <li>Booking window usually opens 2-3 weeks before the match</li>
+                                <li>Popular matches may sell out quickly</li>
+                                <li>Keep your ID proof ready for verification at the stadium</li>
+                                <li>Check stadium guidelines for prohibited items</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Paytm Insider Guide -->
+            <article id="paytm-guide" class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Booking IPL Tickets through Paytm Insider</h3>
+                    <div class="booking-steps">
+                        <p class="guide-intro">Paytm Insider (now district by zomato) offers a seamless ticket booking experience with various exclusive features. Here's a detailed guide to book your IPL tickets:</p>
+                        <ol>
+                            <li><strong>Visit Paytm Insider (now district by zomato) Website or App:</strong> Access through insider.in or download the Paytm Insider app. The platform is optimized for both desktop and mobile users.</li>
+                            <li><strong>Select Your Location:</strong> Choose your city to view matches in your area. Paytm Insider will show:
+                                <ul>
+                                    <li>Upcoming matches in your city</li>
+                                    <li>Away matches if you're interested in traveling</li>
+                                    <li>Special match packages and offers</li>
+                                </ul>
+                            </li>
+                            <li><strong>Search for IPL Tickets:</strong> Find IPL matches through:
+                                <ul>
+                                    <li>Featured events section</li>
+                                    <li>Sports category</li>
+                                    <li>Direct search using "IPL 2025"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Choose the IPL Match:</strong> Each match listing includes:
+                                <ul>
+                                    <li>Detailed match information</li>
+                                    <li>Team statistics and history</li>
+                                    <li>Weather forecast for match day</li>
+                                    <li>Stadium facilities and amenities</li>
+                                </ul>
+                            </li>
+                            <li><strong>Select the Seating Category:</strong> Paytm Insider offers detailed information about each seating category:
+                                <ul>
+                                    <li>Premium Experience (Hospitality Packages)</li>
+                                    <li>Premium Stands (Best Views)</li>
+                                    <li>Regular Stands (Various Sections)</li>
+                                    <li>Student Discounted Sections (Where Available)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Specify the Number of Tickets:</strong> Consider group booking benefits:
+                                <ul>
+                                    <li>Group discounts for 6+ tickets</li>
+                                    <li>Corporate booking options</li>
+                                    <li>Family package deals</li>
+                                </ul>
+                            </li>
+                            <li><strong>Review the Seating Layout:</strong> Interactive stadium map shows:
+                                <ul>
+                                    <li>360° view from selected seats</li>
+                                    <li>Entry/Exit points</li>
+                                    <li>Refreshment areas</li>
+                                    <li>Restroom locations</li>
+                                </ul>
+                            </li>
+                            <li><strong>Login or Sign Up:</strong> Create your account using:
+                                <ul>
+                                    <li>Paytm account</li>
+                                    <li>Email verification</li>
+                                    <li>Mobile number verification</li>
+                                    <li>Social media login options</li>
+                                </ul>
+                            </li>
+                            <li><strong>Enter Payment Details:</strong> Multiple secure payment options:
+                                <ul>
+                                    <li>Paytm Wallet (Extra Cashback)</li>
+                                    <li>UPI Payments</li>
+                                    <li>Credit/Debit Cards</li>
+                                    <li>Net Banking</li>
+                                    <li>EMI Options</li>
+                                </ul>
+                            </li>
+                            <li><strong>Complete the Transaction:</strong> Post-booking process:
+                                <ul>
+                                    <li>Instant confirmation email</li>
+                                    <li>Mobile ticket delivery</li>
+                                    <li>Digital wallet storage option</li>
+                                    <li>Booking reference for support</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <div class="additional-features mt-4">
+                            <h4>Exclusive Paytm Insider Features:</h4>
+                            <ul>
+                                <li>Price alert notifications</li>
+                                <li>Waitlist option for sold-out matches</li>
+                                <li>Easy ticket transfer to friends</li>
+                                <li>Match day instructions and updates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Official Website Guide -->
+            <article id="official-website-guide" class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Booking through Team's Official Website</h3>
+                    <div class="booking-steps">
+                        <ol>
+                            <li>Visit the Team's Official Website</li>
+                            <li>Navigate to the Tickets Section</li>
+                            <li>Select the Match</li>
+                            <li>Choose Your Seating Category</li>
+                            <li>Select the Number of Tickets</li>
+                            <li>Login or Sign Up</li>
+                            <li>Enter Payment Details</li>
+                            <li>Review and Confirm Your Booking</li>
+                            <li>Complete the Transaction</li>
+                            <li>Receive Booking Confirmation</li>
+                        </ol>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Offline Booking Guide -->
+            <article id="offline-booking-guide" class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Offline IPL Ticket Booking</h3>
+                    <div class="booking-steps">
+                        <ol>
+                            <li>Locate Authorized Outlets</li>
+                            <li>Visit the Ticket Counter</li>
+                            <li>Select the Match and Seats</li>
+                            <li>Choose Your Seats and Pay</li>
+                            <li>Receive Your Tickets</li>
+                            <li>Check the Ticket Details</li>
+                            <li>Plan Your Match Day</li>
+                        </ol>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Deals and Discounts -->
+            <article id="deals-discounts" class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">IPL Ticket Booking Deals and Discounts</h3>
+                    <div class="deals-section">
+                        <h4>Early Booking</h4>
+                        <ul>
+                            <li>Early bird offers with special discounts</li>
+                            <li>Pre-sale access for team members/fans</li>
+                        </ul>
+                        
+                        <h4>Team-Specific Discounts</h4>
+                        <ul>
+                            <li>Corporate or group booking discounts</li>
+                            <li>Student or senior citizen discounts</li>
+                        </ul>
+                        
+                        <h4>Promotional Offers</h4>
+                        <ul>
+                            <li>Partnership and sponsorship deals</li>
+                            <li>Limited-time promotional offers</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- FAQ Section -->
+            <article id="booking-faq" class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Frequently Asked Questions</h3>
+                    <div class="faq-section">
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        When do IPL 2025 tickets go on sale?
+                                    </button>
+                                </h4>
+                                <div id="faq1" class="accordion-collapse collapse show">
+                                    <div class="accordion-body">
+                                        IPL 2025 ticket sales typically begin 2-3 weeks before each match. The exact dates vary by venue and team. Pre-sale windows for fan club members usually open 24-48 hours before general sales. For playoff matches and finals, tickets are released approximately 3-4 weeks in advance. We recommend following official team websites and BookMyShow/District by Zomato platforms for the latest announcements.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        What are the IPL ticket price ranges for different stadiums in 2025?
+                                    </button>
+                                </h4>
+                                <div id="faq2" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        IPL ticket prices vary significantly based on the stadium and seating category:
+                                        <ul>
+                                            <li>Premium Stadiums (Mumbai, Bangalore, Delhi): ₹1,500 - ₹25,000</li>
+                                            <li>General Stands: ₹500 - ₹2,500</li>
+                                            <li>Premium Stands: ₹2,500 - ₹8,000</li>
+                                            <li>Corporate Boxes: ₹15,000 - ₹50,000</li>
+                                            <li>Playoff Matches: Add 30-50% to regular prices</li>
+                                            <li>Finals: Premium pricing, ranging from ₹5,000 - ₹50,000</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        What documents are required for IPL match entry?
+                                    </button>
+                                </h4>
+                                <div id="faq3" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        For IPL match entry, you need:
+                                        <ul>
+                                            <li>Valid match ticket (physical or digital)</li>
+                                            <li>Government-issued photo ID (mandatory)</li>
+                                            <li>COVID-19 vaccination certificate (if applicable)</li>
+                                            <li>For children below 15, school ID or birth certificate</li>
+                                            <li>Printed ticket if specified by the venue</li>
+                                        </ul>
+                                        Note: The name on the ID should match the ticket booking name.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                        How can I get discounts on IPL 2025 tickets?
+                                    </button>
+                                </h4>
+                                <div id="faq4" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        Several ways to secure discounted IPL tickets:
+                                        <ul>
+                                            <li>Early bird offers (15-20% off)</li>
+                                            <li>Bank card partnerships (10-15% instant discount)</li>
+                                            <li>Fan club memberships (priority booking + discounts)</li>
+                                            <li>Student discounts (valid ID required)</li>
+                                            <li>Group bookings (6+ tickets)</li>
+                                            <li>Corporate packages</li>
+                                            <li>Loyalty programs on booking platforms</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                        What items are prohibited in IPL stadiums?
+                                    </button>
+                                </h4>
+                                <div id="faq5" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        Prohibited items at IPL matches include:
+                                        <ul>
+                                            <li>Professional cameras and recording equipment</li>
+                                            <li>Outside food and beverages</li>
+                                            <li>Large bags and backpacks</li>
+                                            <li>Banners larger than 3x2 feet</li>
+                                            <li>Weapons or sharp objects</li>
+                                            <li>Cigarettes and lighters</li>
+                                            <li>Power banks and batteries</li>
+                                            <li>Helmets and selfie sticks</li>
+                                        </ul>
+                                        Check specific stadium guidelines for complete list.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                        Can I transfer or resell my IPL match tickets?
+                                    </button>
+                                </h4>
+                                <div id="faq6" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        Official ticket transfer policies:
+                                        <ul>
+                                            <li>Tickets are non-transferable on most platforms</li>
+                                            <li>BookMyShow allows ticket transfer to registered users</li>
+                                            <li>District by Zomato permits transfers within their app</li>
+                                            <li>Reselling tickets is strictly prohibited</li>
+                                            <li>Name changes must be done through official channels</li>
+                                            <li>Transferred tickets must be accompanied by original booker's ID</li>
+                                        </ul>
+                                        Unauthorized resale may result in ticket cancellation.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                                        What happens if an IPL match is cancelled or rescheduled?
+                                    </button>
+                                </h4>
+                                <div id="faq7" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        In case of match cancellation or rescheduling:
+                                        <ul>
+                                            <li>Full refund for cancelled matches</li>
+                                            <li>Tickets remain valid for rescheduled matches</li>
+                                            <li>Refund processing time: 5-7 working days</li>
+                                            <li>Rain cancellation policy varies by venue</li>
+                                            <li>Partial refunds if match is shortened</li>
+                                            <li>Option to transfer tickets to next available match</li>
+                                        </ul>
+                                        Contact your ticket provider for specific policies.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h4 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+                                        What are the best seats for watching IPL matches?
+                                    </button>
+                                </h4>
+                                <div id="faq8" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        Best seating options by preference:
+                                        <ul>
+                                            <li>Best Overall View: Behind the bowler's arm (North/South Stand)</li>
+                                            <li>Premium Experience: Corporate Boxes/VIP Areas</li>
+                                            <li>Atmosphere: East/West Stands (parallel to pitch)</li>
+                                            <li>Budget-Friendly: Upper Tiers</li>
+                                            <li>Shade Priority: Covered Stands (varies by stadium)</li>
+                                            <li>Family-Friendly: Premium Lower Tiers</li>
+                                        </ul>
+                                        Consider stadium orientation and match timing when selecting seats.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer mt-5 py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted">© 2025 IPL Ticket Tracker. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <!-- Vercel Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html> 

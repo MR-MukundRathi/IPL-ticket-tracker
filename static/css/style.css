@@ -1,0 +1,1248 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-subtitle {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+}
+
+.search-filter-card {
+    background: white;
+}
+
+.table-card {
+    background: white;
+}
+
+/* Search Box Styles */
+.search-box {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+#searchInput {
+    padding-left: 35px;
+}
+
+/* Table Styles */
+.table {
+    margin-bottom: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+    text-align: left;
+}
+
+/* Status badge styles */
+.status-badge {
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    min-width: 110px;
+    justify-content: center;
+    text-align: center;
+}
+
+.status-available {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-unavailable {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* Table Container */
+.table-responsive {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Custom scrollbar for webkit browsers */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Hover effect on rows */
+.table tbody tr:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+/* Card containing table */
+.table-card {
+    overflow: hidden;
+}
+
+/* Date and Time Container Styles */
+.date-time-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.date-time-inline {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.date-time-inline .date {
+    font-weight: 500;
+}
+
+.date-time-inline .time {
+    color: #6c757d;
+}
+
+.date-time-inline i {
+    color: #1a237e;
+    opacity: 0.8;
+}
+
+.date-time-container .time {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Last Checked Time Styles */
+.last-checked {
+    font-size: 0.85rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Loading Spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Stats in Header */
+.stats {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.stats i {
+    opacity: 0.8;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-subtitle {
+        display: none;
+    }
+    
+    .stats {
+        text-align: left;
+        margin-top: 10px;
+    }
+}
+
+/* Animation for Status Changes */
+@keyframes statusChange {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.booking-status-changed {
+    animation: statusChange 0.3s ease-in-out;
+}
+
+.match-checkbox {
+    cursor: pointer;
+}
+
+.form-check {
+    display: flex;
+    justify-content: center;
+}
+
+/* Action column styling */
+.table td:last-child {
+    width: 120px;
+    text-align: center;
+}
+
+.btn-outline-primary {
+    border-width: 1.5px;
+}
+
+.btn-outline-primary:hover {
+    transform: translateY(-1px);
+    transition: transform 0.2s;
+}
+
+.btn-outline-secondary {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Update table column widths */
+.table td:nth-child(3) {  /* Teams column */
+    min-width: 200px;
+}
+
+.table td:nth-child(8) {  /* Action column */
+    width: 120px;
+}
+
+/* Subscription button styles */
+.subscribe-btn {
+    min-width: 100px;
+    transition: all 0.2s ease;
+}
+
+.subscribe-btn.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.subscribe-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Disabled Subscribe Button */
+.subscribe-btn:disabled {
+    background-color: #e9ecef !important;
+    border-color: #dee2e6 !important;
+    color: #6c757d !important;
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.subscribe-btn:disabled:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Modal styles */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Loading state styles */
+.subscribe-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Toast styles */
+.toast-container {
+    z-index: 1050;
+}
+
+.toast {
+    min-width: 300px;
+}
+
+.toast-header {
+    padding: 0.75rem 1rem;
+}
+
+.toast-header .btn-close-white {
+    filter: brightness(0) invert(1);
+}
+
+#news-container {
+    border: 1px solid #dee2e6; /* Light border for the card */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+
+#news-content {
+    margin-top: 10px; /* Space between the dot and news text */
+    font-weight: normal; /* Make it less bold */
+    font-size: 1rem; /* Subtle font size */
+}
+
+#live-dot {
+    margin-right: 10px; /* Space between the dot and news text */
+}
+
+/* Pulsating effect for the live dot */
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* News content styling */
+#news-content {
+    margin-top: 10px; /* Space between the dot and news text */
+    font-weight: normal; /* Make it less bold */
+    font-size: 1rem; /* Subtle font size */
+}
+
+/* Date styling */
+#news-content .news-date {
+    font-size: 0.85rem; /* Smaller font size for the date */
+    color: #6c757d; /* Subtle color for the date */
+}
+
+/* Booking Guide Styles */
+.booking-guide {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+}
+
+.booking-guide h2 {
+    color: #1a237e;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.booking-guide .card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.booking-guide .card:hover {
+    transform: translateY(-5px);
+}
+
+.booking-guide .card-title {
+    color: #2196f3;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.booking-steps ol {
+    padding-left: 20px;
+}
+
+.booking-steps li {
+    margin-bottom: 10px;
+    color: #424242;
+    line-height: 1.6;
+}
+
+.deals-section h4 {
+    color: #1a237e;
+    font-size: 1.2rem;
+    margin: 20px 0 10px;
+}
+
+.deals-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.deals-section li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.deals-section li:before {
+    content: "•";
+    color: #2196f3;
+    position: absolute;
+    left: 0;
+}
+
+.faq-section .accordion-button {
+    color: #1a237e;
+    font-weight: 500;
+}
+
+.faq-section .accordion-button:not(.collapsed) {
+    background-color: #e3f2fd;
+    color: #1a237e;
+}
+
+.faq-section .accordion-body {
+    color: #424242;
+    line-height: 1.6;
+}
+
+/* SEO Optimization */
+.booking-guide article {
+    margin-bottom: 30px;
+}
+
+.booking-guide h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .booking-guide {
+        padding: 20px 0;
+    }
+    
+    .booking-guide h2 {
+        font-size: 1.8rem;
+    }
+    
+    .booking-guide .card-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* Booking Guide Enhanced Styles */
+.guide-intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #424242;
+    margin-bottom: 25px;
+}
+
+.booking-steps ol > li {
+    margin-bottom: 25px;
+    padding-left: 10px;
+}
+
+.booking-steps ol > li strong {
+    color: #1a237e;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.booking-steps ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.booking-steps ul li {
+    margin-bottom: 8px;
+    color: #555;
+    position: relative;
+    padding-left: 20px;
+}
+
+.booking-steps ul li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #2196f3;
+}
+
+.seating-categories,
+.seating-features,
+.login-options,
+.payment-methods,
+.post-booking {
+    background-color: #f8f9fa;
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.important-notes,
+.additional-features {
+    background-color: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.important-notes h4,
+.additional-features h4 {
+    color: #1a237e;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.important-notes ul,
+.additional-features ul {
+    padding-left: 20px;
+}
+
+.important-notes ul li,
+.additional-features ul li {
+    margin-bottom: 10px;
+    color: #424242;
+}
+
+.booking-steps .payment-methods li,
+.booking-steps .login-options li {
+    color: #555;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+    .guide-intro {
+        font-size: 1rem;
+    }
+
+    .booking-steps ol > li strong {
+        font-size: 1rem;
+    }
+
+    .seating-categories,
+    .seating-features,
+    .login-options,
+    .payment-methods,
+    .post-booking {
+        padding: 12px 20px;
+    }
+
+    .important-notes,
+    .additional-features {
+        padding: 15px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .booking-guide {
+        background-color: white;
+        padding: 0;
+    }
+
+    .booking-steps ol > li {
+        page-break-inside: avoid;
+    }
+
+    .important-notes,
+    .additional-features {
+        border: 1px solid #ddd;
+        background-color: white;
+    }
+}
+
+/* Main Ticket Booking Section Styles */
+.ticket-booking-section {
+    padding: 3rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#main-ticket-heading {
+    color: #1a237e;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.ticket-intro {
+    background-color: #f5f5f5;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.ticket-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.table-of-contents {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+.table-of-contents h2 {
+    color: #1a237e;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.table-of-contents li {
+    margin-bottom: 0.8rem;
+}
+
+.table-of-contents a {
+    color: #2196f3;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+.table-of-contents a:hover {
+    color: #1565c0;
+    background-color: #e3f2fd;
+    transform: translateX(5px);
+}
+
+/* Section Spacing */
+#booking-guide,
+#teams-affiliates,
+#team-prices,
+#stadium-prices {
+    padding-top: 80px;
+    margin-top: -60px;
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Active Navigation Highlight */
+.table-of-contents a:target {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .ticket-booking-section {
+        padding: 2rem 1rem;
+    }
+
+    #main-ticket-heading {
+        font-size: 2rem;
+    }
+
+    .table-of-contents ul {
+        grid-template-columns: 1fr;
+    }
+
+    .table-of-contents a {
+        padding: 0.8rem 1rem;
+    }
+}
+
+/* Teams and Affiliates Table */
+.ticket-partners-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ticket-partners-table th,
+.ticket-partners-table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+}
+
+.ticket-partners-table th {
+    background-color: #1a237e;
+    color: #fff;
+}
+
+.ticket-partners-table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+/* Price Info Section */
+.price-info {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.price-info ul {
+    padding-left: 1.5rem;
+}
+
+.price-info li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.price-ranges {
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+/* Stadium Cards */
+.stadium-category {
+    margin-bottom: 3rem;
+}
+
+.stadium-category h3 {
+    color: #1a237e;
+    margin-bottom: 1.5rem;
+}
+
+.stadium-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stadium-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.stadium-card:hover {
+    transform: translateY(-5px);
+}
+
+.stadium-card h4 {
+    padding: 1rem;
+    margin: 0;
+    color: #1a237e;
+    font-size: 1.2rem;
+}
+
+.stadium-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.stadium-card p {
+    padding: 1rem;
+    margin: 0;
+    color: #333;
+}
+
+.stadium-links {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.stadium-links a {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.read-more {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.book-now {
+    background-color: #1a237e;
+    color: #fff;
+}
+
+.read-more:hover {
+    background-color: #e0e0e0;
+}
+
+.book-now:hover {
+    background-color: #0d1b60;
+}
+
+.important-note {
+    background-color: #fff3e0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.important-note p {
+    margin: 0;
+    color: #e65100;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .ticket-booking-section {
+        padding: 1rem;
+    }
+
+    #main-ticket-heading {
+        font-size: 2rem;
+    }
+
+    .stadium-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .ticket-partners-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* View Control Classes */
+.desktop-only {
+    display: table-row;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* Mobile Card View Styles */
+@media (max-width: 768px) {
+    /* Hide desktop table elements */
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: block !important;
+    }
+    
+    .table-card {
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .table-responsive {
+        border: none;
+        overflow-x: hidden !important;
+    }
+
+    /* Hide table headers on mobile */
+    #matchesTable thead {
+        display: none;
+    }
+
+    /* Mobile Card Container */
+    #matchesTable tbody {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        padding: 16px;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Match Card Styles */
+    .match-card {
+        width: 100%;
+        margin: 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    /* Card Header */
+    .match-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 16px;
+        background: linear-gradient(to right, #f8f9fa, #ffffff);
+        border-bottom: 1px solid #eee;
+    }
+
+    .match-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Updated match number with date */
+    .match-number {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1a237e;
+        background: #e3f2fd;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .match-date-short {
+        font-size: 0.85rem;
+        font-weight: normal;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .match-date-short i {
+        color: #1a237e;
+        font-size: 0.9rem;
+    }
+
+    /* Time display */
+    .match-time {
+        color: #666;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-left: 4px;
+    }
+
+    .match-time i {
+        color: #1a237e;
+        font-size: 0.9rem;
+    }
+
+    /* Teams Section */
+    .match-card-teams {
+        padding: 16px;
+    }
+
+    .match-card-teams .team-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .team-row .home-team,
+    .team-row .away-team {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .team-row i {
+        width: 20px;
+        text-align: center;
+        opacity: 0.7;
+        flex-shrink: 0;
+    }
+
+    .team-row span {
+        flex: 1;
+        text-align: left;
+    }
+
+    /* Venue Section */
+    .match-card-venue {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        background: #f8f9fa;
+        border-top: 1px solid #eee;
+    }
+
+    .match-card-venue i {
+        color: #1a237e;
+        font-size: 1rem;
+        flex-shrink: 0;
+        width: 16px;
+        text-align: center;
+    }
+
+    .venue-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .venue-name {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 2px;
+        line-height: 1.2;
+    }
+
+    .stadium-name {
+        font-size: 0.85rem;
+        color: #666;
+        line-height: 1.2;
+    }
+
+    /* Status Badge */
+    .booking-status.mobile {
+        white-space: nowrap;
+        text-align: center;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-weight: 500;
+        min-width: 110px;
+        max-width: 130px;
+    }
+
+    /* Action Buttons */
+    .match-card-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 16px;
+        background: #fff;
+        border-top: 1px solid #eee;
+    }
+
+    /* Single action (Book Now only) */
+    .match-card-actions.single-action {
+        grid-template-columns: 1fr;
+    }
+
+    .match-card-actions .btn {
+        padding: 8px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border-radius: 8px;
+        transition: transform 0.2s ease;
+    }
+
+    .match-card-actions .btn:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Book Now button */
+    .match-card-actions .book-now-btn {
+        background-color: #1a73e8;
+        border-color: #1a73e8;
+    }
+
+    .match-card-actions .book-now-btn:hover {
+        background-color: #1765cc;
+        border-color: #1765cc;
+    }
+
+    /* Single Column on Very Small Screens */
+    @media (max-width: 480px) {
+        #matchesTable tbody {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+/* Desktop-only styles */
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+    
+    .desktop-only {
+        display: table-row !important;
+    }
+
+    .table-responsive {
+        border: none;
+        overflow-x: auto;
+    }
+
+    .table thead {
+        display: table-header-group;
+    }
+
+    .table tbody tr {
+        display: table-row;
+    }
+
+    .table td, .table th {
+        display: table-cell;
+    }
+
+    /* Column widths */
+    .table td:first-child, .table th:first-child {
+        width: 80px;  /* Match ID */
+    }
+
+    .table td:nth-child(2), .table th:nth-child(2) {
+        width: 150px; /* Date & Time */
+    }
+
+    .table td:nth-child(3), .table th:nth-child(3) {
+        width: 200px; /* Teams */
+    }
+
+    .table td:nth-child(4), .table th:nth-child(4) {
+        width: 120px; /* Venue */
+    }
+
+    .table td:nth-child(5), .table th:nth-child(5) {
+        width: 120px; /* Stadium */
+    }
+
+    .table td:nth-child(6), .table th:nth-child(6) {
+        width: 150px; /* Booking Status */
+        text-align: center;
+    }
+
+    .table td:nth-child(7), .table th:nth-child(7) {
+        width: 120px; /* Book Tickets */
+        text-align: center;
+    }
+
+    .table td:nth-child(8), .table th:nth-child(8) {
+        width: 120px; /* Notifications */
+        text-align: center;
+    }
+    
+    /* Team container in desktop view */
+    .teams-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .team {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .team i {
+        flex-shrink: 0;
+        width: 16px;
+        margin-right: 6px;
+    }
+
+    /* Mobile team display */
+    .team-row .home-team,
+    .team-row .away-team {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .team-row span {
+        flex: 1;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* Button Styles */
+.btn-sm {
+    white-space: nowrap;
+    min-width: 100px;
+    text-align: center;
+    padding: 0.375rem 0.75rem;
+}
+
+/* Mobile Status Badge */
+.booking-status.mobile {
+    white-space: nowrap;
+    text-align: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 500;
+    min-width: 110px;
+    max-width: 130px;
+}
+
+/* Filtered elements */
+.filtered-out {
+    display: none !important;
+}

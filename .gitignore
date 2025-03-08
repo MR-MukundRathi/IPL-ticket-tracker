@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+# Ignore credentials and private files
+credentials.json 
+.env
