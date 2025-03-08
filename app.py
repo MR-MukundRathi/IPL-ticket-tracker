@@ -15,7 +15,7 @@ scopes = [
        'https://www.googleapis.com/auth/drive'  # Full access
    ]
 
-# Load Google API credentials from environment variableee
+# Load Google API credentials from environment variable
 google_api_credentials = os.getenv('GOOGLE_API_CREDENTIALS')
 
 if not google_api_credentials:

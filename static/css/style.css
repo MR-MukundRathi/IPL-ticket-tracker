@@ -52,8 +52,7 @@ header {
 /* Table Styles */
 .table {
     margin-bottom: 0;
-    width: 100%;
-    border-collapse: collapse;
+    white-space: nowrap;
 }
 
 .table th {
@@ -65,30 +64,93 @@ header {
     font-size: 0.8rem;
     letter-spacing: 0.5px;
     padding: 1rem;
-    text-align: left;
-    white-space: nowrap;
 }
 
 .table td {
     vertical-align: middle;
-    padding: 1rem 0.75rem;
+    padding: 1rem;
     border-bottom: 1px solid #dee2e6;
-    text-align: left;
+}
+
+/* Column widths */
+.table td:first-child {
+    width: 80px;  /* Match ID */
+}
+
+.table td:nth-child(2) {
+    width: 150px; /* Date & Time */
+}
+
+.table td:nth-child(3) {
+    min-width: 200px; /* Teams */
+}
+
+.table td:nth-child(4),
+.table td:nth-child(5) {
+    min-width: 120px; /* Venue & Stadium */
+}
+
+.table td:nth-child(6) {
+    width: 140px; /* Booking Status */
+}
+
+.table td:nth-child(7) {
+    width: 120px; /* Book Tickets */
+    text-align: center;
+}
+
+.table td:nth-child(8) {
+    width: 120px; /* Notifications */
+    text-align: center;
+}
+
+/* Button styles */
+.book-now-btn,
+.subscribe-btn {
+    min-width: 100px;
+    transition: all 0.3s ease;
+}
+
+.book-now-btn:hover,
+.subscribe-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Teams styling */
+.teams-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 0.9rem;
+}
+
+.home-team {
+    font-weight: 500;
+    color: #0d6efd;
+}
+
+.away-team {
+    color: #6c757d;
 }
 
 /* Status badge styles */
-.status-badge {
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+.booking-status {
     padding: 6px 12px;
     border-radius: 6px;
     font-weight: 500;
     font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
     min-width: 110px;
     justify-content: center;
-    text-align: center;
 }
 
 .status-available {
@@ -137,32 +199,11 @@ header {
     overflow: hidden;
 }
 
-/* Date and Time Container Styles */
+/* Date and time container */
 .date-time-container {
     display: flex;
     flex-direction: column;
     gap: 2px;
-}
-
-.date-time-inline {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    font-size: 0.9rem;
-    color: #333;
-}
-
-.date-time-inline .date {
-    font-weight: 500;
-}
-
-.date-time-inline .time {
-    color: #6c757d;
-}
-
-.date-time-inline i {
-    color: #1a237e;
-    opacity: 0.8;
 }
 
 .date-time-container .time {
@@ -259,33 +300,15 @@ header {
 /* Subscription button styles */
 .subscribe-btn {
     min-width: 100px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .subscribe-btn.btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
+    opacity: 0.9;
 }
 
 .subscribe-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Disabled Subscribe Button */
-.subscribe-btn:disabled {
-    background-color: #e9ecef !important;
-    border-color: #dee2e6 !important;
-    color: #6c757d !important;
-    cursor: not-allowed;
-    opacity: 0.65;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-.subscribe-btn:disabled:hover {
-    transform: none !important;
-    box-shadow: none !important;
 }
 
 /* Modal styles */
@@ -864,385 +887,4 @@ html {
         display: block;
         overflow-x: auto;
     }
-}
-
-/* View Control Classes */
-.desktop-only {
-    display: table-row;
-}
-
-.mobile-only {
-    display: none;
-}
-
-/* Mobile Card View Styles */
-@media (max-width: 768px) {
-    /* Hide desktop table elements */
-    .desktop-only {
-        display: none !important;
-    }
-
-    .mobile-only {
-        display: block !important;
-    }
-    
-    .table-card {
-        background: transparent;
-        box-shadow: none;
-    }
-
-    .table-responsive {
-        border: none;
-        overflow-x: hidden !important;
-    }
-
-    /* Hide table headers on mobile */
-    #matchesTable thead {
-        display: none;
-    }
-
-    /* Mobile Card Container */
-    #matchesTable tbody {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
-        padding: 16px;
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
-
-    /* Match Card Styles */
-    .match-card {
-        width: 100%;
-        margin: 0;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
-
-    /* Card Header */
-    .match-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 16px;
-        background: linear-gradient(to right, #f8f9fa, #ffffff);
-        border-bottom: 1px solid #eee;
-    }
-
-    .match-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    /* Updated match number with date */
-    .match-number {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #1a237e;
-        background: #e3f2fd;
-        padding: 8px 12px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .match-date-short {
-        font-size: 0.85rem;
-        font-weight: normal;
-        color: #555;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .match-date-short i {
-        color: #1a237e;
-        font-size: 0.9rem;
-    }
-
-    /* Time display */
-    .match-time {
-        color: #666;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding-left: 4px;
-    }
-
-    .match-time i {
-        color: #1a237e;
-        font-size: 0.9rem;
-    }
-
-    /* Teams Section */
-    .match-card-teams {
-        padding: 16px;
-    }
-
-    .match-card-teams .team-row {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .team-row .home-team,
-    .team-row .away-team {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        text-align: left;
-    }
-
-    .team-row i {
-        width: 20px;
-        text-align: center;
-        opacity: 0.7;
-        flex-shrink: 0;
-    }
-
-    .team-row span {
-        flex: 1;
-        text-align: left;
-    }
-
-    /* Venue Section */
-    .match-card-venue {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 16px;
-        background: #f8f9fa;
-        border-top: 1px solid #eee;
-    }
-
-    .match-card-venue i {
-        color: #1a237e;
-        font-size: 1rem;
-        flex-shrink: 0;
-        width: 16px;
-        text-align: center;
-    }
-
-    .venue-details {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .venue-name {
-        font-weight: 500;
-        color: #333;
-        margin-bottom: 2px;
-        line-height: 1.2;
-    }
-
-    .stadium-name {
-        font-size: 0.85rem;
-        color: #666;
-        line-height: 1.2;
-    }
-
-    /* Status Badge */
-    .booking-status.mobile {
-        white-space: nowrap;
-        text-align: center;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        font-weight: 500;
-        min-width: 110px;
-        max-width: 130px;
-    }
-
-    /* Action Buttons */
-    .match-card-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        padding: 16px;
-        background: #fff;
-        border-top: 1px solid #eee;
-    }
-
-    /* Single action (Book Now only) */
-    .match-card-actions.single-action {
-        grid-template-columns: 1fr;
-    }
-
-    .match-card-actions .btn {
-        padding: 8px;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        border-radius: 8px;
-        transition: transform 0.2s ease;
-    }
-
-    .match-card-actions .btn:hover {
-        transform: translateY(-1px);
-    }
-
-    /* Book Now button */
-    .match-card-actions .book-now-btn {
-        background-color: #1a73e8;
-        border-color: #1a73e8;
-    }
-
-    .match-card-actions .book-now-btn:hover {
-        background-color: #1765cc;
-        border-color: #1765cc;
-    }
-
-    /* Single Column on Very Small Screens */
-    @media (max-width: 480px) {
-        #matchesTable tbody {
-            grid-template-columns: 1fr;
-        }
-    }
-}
-
-/* Desktop-only styles */
-@media (min-width: 769px) {
-    .mobile-only {
-        display: none !important;
-    }
-    
-    .desktop-only {
-        display: table-row !important;
-    }
-
-    .table-responsive {
-        border: none;
-        overflow-x: auto;
-    }
-
-    .table thead {
-        display: table-header-group;
-    }
-
-    .table tbody tr {
-        display: table-row;
-    }
-
-    .table td, .table th {
-        display: table-cell;
-    }
-
-    /* Column widths */
-    .table td:first-child, .table th:first-child {
-        width: 80px;  /* Match ID */
-    }
-
-    .table td:nth-child(2), .table th:nth-child(2) {
-        width: 150px; /* Date & Time */
-    }
-
-    .table td:nth-child(3), .table th:nth-child(3) {
-        width: 200px; /* Teams */
-    }
-
-    .table td:nth-child(4), .table th:nth-child(4) {
-        width: 120px; /* Venue */
-    }
-
-    .table td:nth-child(5), .table th:nth-child(5) {
-        width: 120px; /* Stadium */
-    }
-
-    .table td:nth-child(6), .table th:nth-child(6) {
-        width: 150px; /* Booking Status */
-        text-align: center;
-    }
-
-    .table td:nth-child(7), .table th:nth-child(7) {
-        width: 120px; /* Book Tickets */
-        text-align: center;
-    }
-
-    .table td:nth-child(8), .table th:nth-child(8) {
-        width: 120px; /* Notifications */
-        text-align: center;
-    }
-    
-    /* Team container in desktop view */
-    .teams-container {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .team {
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .team i {
-        flex-shrink: 0;
-        width: 16px;
-        margin-right: 6px;
-    }
-
-    /* Mobile team display */
-    .team-row .home-team,
-    .team-row .away-team {
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .team-row span {
-        flex: 1;
-        text-align: left;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-
-/* Button Styles */
-.btn-sm {
-    white-space: nowrap;
-    min-width: 100px;
-    text-align: center;
-    padding: 0.375rem 0.75rem;
-}
-
-/* Mobile Status Badge */
-.booking-status.mobile {
-    white-space: nowrap;
-    text-align: center;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-weight: 500;
-    min-width: 110px;
-    max-width: 130px;
-}
-
-/* Filtered elements */
-.filtered-out {
-    display: none !important;
 }
